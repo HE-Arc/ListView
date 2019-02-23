@@ -12,9 +12,6 @@ class TeamList(generics.ListCreateAPIView):
     serializer_class = TeamSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    def perform_create(self, team):
-        team.save()
-
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
