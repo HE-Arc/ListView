@@ -13,7 +13,7 @@ class TeamList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, team):
-        team.save(owner=self.request.user)
+        team.save()
 
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):

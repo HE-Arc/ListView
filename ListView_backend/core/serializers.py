@@ -4,9 +4,11 @@ from core.models import Team, CustomUser
 
 
 class TeamSerializer(serializers.ModelSerializer):
+    part_of = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), many=True)
+
     class Meta:
         model = Team
-        fields = ('name',)
+        fields = ('id', 'name', 'part_of')
 
 
 class UserSerializer(serializers.ModelSerializer):
