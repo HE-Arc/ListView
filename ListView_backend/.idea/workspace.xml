@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7122c9c-8613-40c2-abd3-3a1569945257" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ListView_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ListView_backend/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="f7122c9c-8613-40c2-abd3-3a1569945257" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,11 +44,11 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="false">
+              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/core/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="216">
-                      <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+                    <state relative-caret-position="297">
+                      <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
                       <folding>
                         <element signature="e#0#28#0" expanded="true" />
                       </folding>
@@ -70,7 +68,7 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="true">
+              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/ListView_backend/settings.py">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="402">
@@ -276,12 +274,12 @@
       <workItem from="1550911764009" duration="10766000" />
       <workItem from="1550993526829" duration="3245000" />
       <workItem from="1551004364393" duration="2095000" />
-      <workItem from="1551023303203" duration="6891000" />
+      <workItem from="1551023303203" duration="8094000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32130000" />
+    <option name="totallyTimeSpent" value="33333000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1918" y="-16" width="2564" height="1428" extended-state="0" />
@@ -352,16 +350,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -386,6 +374,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
           <caret line="140" column="21" selection-start-line="140" selection-start-column="21" selection-end-line="140" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
