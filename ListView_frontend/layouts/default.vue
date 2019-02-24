@@ -13,7 +13,7 @@ export default {
     navbar
   },
   mounted () {
-    this.$store.commit('http/loadToken')
+    this.$store.dispatch('http/loadToken')
   }
 }
 </script>

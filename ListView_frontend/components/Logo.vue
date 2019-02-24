@@ -23,7 +23,7 @@ export default {
     log () {
       const username = this.username
       const password = this.password
-      this.$store.commit('http/obtainToken', { username, password })
+      this.$store.dispatch('http/obtainToken', { username, password })
     },
     get () {
       this.$axios.get('api/teams/').then((response) => {
