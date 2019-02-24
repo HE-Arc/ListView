@@ -8,6 +8,11 @@ export const state = () => ({
 })
 
 export const mutations = {
+  loadToken (state) {
+    state.accessToken = sessionStorage.getItem('accessToken')
+    state.refreshToken = sessionStorage.getItem('refreshToken')
+    this.$axios.setToken(state.accessToken, 'Bearer')
+  },
   updateToken (state, tokens) {
     sessionStorage.setItem('accessToken', tokens.access)
     sessionStorage.setItem('refreshToken', tokens.refresh)

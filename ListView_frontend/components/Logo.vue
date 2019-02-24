@@ -3,8 +3,10 @@
     <button @click="log">
       Login
     </button>
-    <button @click="get">get</button>
-    {{message}}
+    <button @click="get">
+      get
+    </button>
+    {{ message }}
   </div>
 </template>
 
@@ -24,7 +26,7 @@ export default {
       this.$store.commit('http/obtainToken', { username, password })
     },
     get () {
-      this.$axios.get('api/teams').then((response) => {
+      this.$axios.get('api/teams/').then((response) => {
         this.message = response.data
       })
     }
