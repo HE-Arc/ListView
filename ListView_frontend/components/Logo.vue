@@ -1,11 +1,7 @@
 <template>
   <div class="VueToNuxtLogo">
-    <button @click="log">
-      Login
-    </button>
-    <button @click="get">
-      get
-    </button>
+    <button @click="log">Login</button>
+    <button @click="get">get</button>
     {{ message }}
   </div>
 </template>
