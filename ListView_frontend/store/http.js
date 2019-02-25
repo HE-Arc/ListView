@@ -26,7 +26,7 @@ export const mutations = {
 export const actions = {
   obtainToken ({ commit, state }, payload) {
     this.$axios.post(endpoints.obtainToken, payload).then((response) => {
-      this.commit('http/updateToken', response.data)
+      this.dispatch('http/updateToken', response.data)
     })
   },
   loadToken () {
@@ -38,7 +38,7 @@ export const actions = {
   updateToken ({ commit, state }, tokens) {
     sessionStorage.setItem('accessToken', tokens.access)
     sessionStorage.setItem('refreshToken', tokens.refresh)
-    this.$axios.setToken(state.accessToken, 'Bearer')
+    this.$axios.setToken(tokens.access, 'Bearer')
     this.commit('http/UPDATETOKEN', tokens)
   },
   removeToken () {
