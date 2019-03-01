@@ -22,9 +22,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'navbar'
-  }
+export default {
+  name: 'navbar'
+}
 </script>
 
 <style scoped>
