@@ -52,17 +52,23 @@
       let instance = this
       setTimeout(() => {
         //without setTimeout the session aren't already up. We should find another way to fix it
-        if (instance.$store.getters['http/isLogged']) {
-          instance.$router.push({ 'name': 'index' })
-        }
+        instance.$store.dispatch('http/isTokenValid').then(response => {
+          if (response === true) {
+            instance.$router.push({ 'name': 'index' })
+          }
+        })
       }, 10)
     },
     methods: {
       startLogin () {
         if (this.isRegisterForm) {
-          if(this.username && this.password && this.password_confirm) {
-            if(this.password === this.password_confirm) {
-              this.$axios.post('api/users/', {username: this.username, password: this.password, email: this.email}).then(response => {
+          if (this.username && this.password && this.password_confirm) {
+            if (this.password === this.password_confirm) {
+              this.$axios.post('api/users/', {
+                username: this.username,
+                password: this.password,
+                email: this.email
+              }).then(response => {
                 this.login()
               })
             } else {
@@ -74,7 +80,8 @@
         } else {
           this.login()
         }
-      },
+      }
+      ,
       login () {
         if (this.username && this.password) {
           this.$axios.post('api/token/', { username: this.username, password: this.password }).then((response) => {
@@ -82,17 +89,20 @@
             this.$router.push({ 'name': 'index' })
           })
         }
-      },
+      }
+      ,
       switchForm () {
-        this.isRegisterForm = ! this.isRegisterForm
-      },
+        this.isRegisterForm = !this.isRegisterForm
+      }
+      ,
       logText (isPrimary) {
         if (isPrimary) {
-          return this.isRegisterForm ? 'Sign up' : 'Log in'
+          return this.isRegisterForm ? 'Sign up' : 'Sign in'
         }
-        return this.isRegisterForm ? 'Log in' : 'Sign up'
+        return this.isRegisterForm ? 'Sign in' : 'Sign up'
       }
-    },
+    }
+    ,
 
   }
 </script>
