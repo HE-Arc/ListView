@@ -2,6 +2,7 @@
   <div>
     <navbar />
     <nuxt />
+
   </div>
 </template>
 

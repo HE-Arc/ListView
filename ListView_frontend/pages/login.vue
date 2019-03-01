@@ -14,32 +14,48 @@
         </div>
       </div>
       <div class="form-group row">
-          <button class="btn btn-outline-primary col-sm-5 mx-auto" @click="startLogin">Log in</button>
-          <button class="btn btn-outline-secondary col-sm-5 mx-auto">Sign up</button>
+        <button class="btn btn-outline-primary col-sm-5 mx-auto" @click.prevent="startLogin">Log in</button>
+        <button class="btn btn-outline-secondary col-sm-5 mx-auto" @click.prevent="checkToken">Sign up</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'login',
-  data () {
-    return {
-      username: '',
-      password: '',
-      isRegisterForm: false
-    }
-  },
-  methods: {
-    startLogin () {
-      if (this.username && this.password) {
-        console.log(this.username)
-      }
-    }
-  }
+  export default {
+    name: 'login',
+    data () {
+      return {
+        username: '',
+        password: '',
+        isRegisterForm: false
 
-}
+      }
+    },
+    mounted () {
+      let instance = this
+      setTimeout(() => {
+        console.log(instance.$store.getters['http/isLogged'])
+        if (instance.$store.getters['http/isLogged']) {
+          instance.$router.push({ 'name': 'index' })
+        }
+      }, 10)
+    },
+    methods: {
+      startLogin () {
+        if (this.username && this.password) {
+          this.$axios.post('api/token/', { username: this.username, password: this.password }).then((response) => {
+            this.$store.dispatch('http/updateToken', response.data)
+            this.$router.push({ 'name': 'index' })
+          })
+        }
+      },
+      checkToken () {
+        console.log(this.$store.state.http.accessToken)
+      }
+    },
+
+  }
 </script>
 
 <style scoped>

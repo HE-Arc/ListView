@@ -1,34 +1,42 @@
 const endpoints = {
-  obtainToken: 'api/token/',
   refreshToken: 'api/token/refresh/'
 }
 
 export const state = () => ({
   accessToken: null,
-  refreshToken: null
+  refreshToken: null,
+  isLogged: false
 })
+
+export const getters = {
+  isLogged(state) {
+    return state.isLogged
+  }
+}
 
 export const mutations = {
   LOADTOKEN (state, tokens) {
     state.accessToken = tokens.accessToken
     state.refreshToken = tokens.refreshToken
+    if (tokens.accessToken) {
+      state.isLogged = true
+    }
   },
   UPDATETOKEN (state, tokens) {
     state.accessToken = tokens.access
     state.refreshToken = tokens.refresh
+    if (tokens.access) {
+      state.isLogged = true
+    }
   },
   REMOVETOKEN (state) {
     state.accessToken = null
     state.refreshToken = null
+    state.isLogged = false
   }
 }
 
 export const actions = {
-  obtainToken ({ commit, state }, payload) {
-    this.$axios.post(endpoints.obtainToken, payload).then((response) => {
-      this.dispatch('http/updateToken', response.data)
-    })
-  },
   loadToken () {
     const accessToken = sessionStorage.getItem('accessToken')
     const refreshToken = sessionStorage.getItem('refreshToken')
@@ -42,9 +50,11 @@ export const actions = {
     this.commit('http/UPDATETOKEN', tokens)
   },
   removeToken () {
-    sessionStorage.removeItem('accessToken')
-    sessionStorage.removeItem('refreshToken')
-    this.$axios.setToken(null, 'Bearer')
-    this.commit('http/REMOVETOKEN')
+    return new Promise(() => {
+      sessionStorage.removeItem('accessToken')
+      sessionStorage.removeItem('refreshToken')
+      this.$axios.setToken(null, 'Bearer')
+      this.commit('http/REMOVETOKEN')
+    })
   }
 }

@@ -14,7 +14,8 @@
           <a class="nav-item nav-link" href="#">Board (todo)</a>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <n-link class="nav-item nav-link" :to="{ name: 'login' }" active-class="active" exact>Login</n-link>
+          <li class="nav-item nav-link" @click.prevent="changeLog">{{textLog}}</li>
+          <!--<n-link class="nav-item nav-link" :to="{ name: 'login' }" active-class="active" v-else exact>Login</n-link>-->
         </ul>
       </div>
     </nav>
@@ -23,7 +24,28 @@
 
 <script>
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  methods: {
+    changeLog() {
+      if(this.isLogged) {
+        this.$store.dispatch('http/removeToken')
+        this.$router.push({name: 'index'})
+      } else {
+        this.$router.push({name: 'login'})
+      }
+    }
+  },
+  computed: {
+    isLogged() {
+      return this.$store.getters['http/isLogged']
+    },
+    textLog() {
+      if (this.isLogged) {
+        return 'logout'
+      }
+      return 'login'
+    }
+  }
 }
 </script>
 
