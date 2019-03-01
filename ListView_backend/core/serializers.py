@@ -15,4 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'team')
+        fields = ('id', 'username', 'email', 'password', 'team')
+
+    def create(self, validated_data, **kwargs):
+        user = super().create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

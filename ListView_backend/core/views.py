@@ -1,8 +1,9 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
-from core.models import Team
-from core.serializers import TeamSerializer
+from core.models import Team, CustomUser
+from core.serializers import TeamSerializer, UserSerializer
 
 
 class TeamList(generics.ListCreateAPIView):
@@ -20,3 +21,8 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+
+class UserCreate(generics.CreateAPIView):
+    queryset = CustomUser
+    serializer_class = UserSerializer
