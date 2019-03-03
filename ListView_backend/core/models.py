@@ -15,3 +15,7 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+class Board(models.Model):
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(Team, related_name='boards', on_delete=models.CASCADE)

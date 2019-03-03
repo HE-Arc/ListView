@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Team, CustomUser
+from core.models import Team, CustomUser, Board
 
 
 class TeamSerializer(serializers.ModelSerializer):
@@ -16,3 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'team')
+
+class BoardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Board
+        fields = ('id', 'name', 'owner')
