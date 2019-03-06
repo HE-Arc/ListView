@@ -1,11 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
-from core.models import Team
-from core.serializers import TeamSerializer
-
-from core.models import Board
-from core.serializers import BoardSerializer
+from core.models import Team, Board
+from core.serializers import TeamSerializer, BoardSerializer
 
 
 class TeamList(generics.ListCreateAPIView):
