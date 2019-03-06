@@ -10,11 +10,11 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
     part_of = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), many=True)
-    possess = BoardSerializer(many=True, read_only=True)
+    boards = BoardSerializer(many=True, read_only=True)
 
     class Meta:
         model = Team
-        fields = ('id', 'name', 'part_of', 'possess')
+        fields = ('id', 'name', 'part_of', 'boards')
 
 
 class UserSerializer(serializers.ModelSerializer):
