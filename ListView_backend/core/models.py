@@ -7,10 +7,15 @@ class CustomUser(AbstractUser):
      Recommand to use a custom, in case we want to add field in the future"""
     pass
 
+class Board(models.Model):
+    name = models.CharField(max_length=100)
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
     part_of = models.ManyToManyField(CustomUser, related_name='team', blank=True)
+    possess = models.ManyToManyField(Board, related_name='team', blank=True)
 
     def __str__(self):
         return self.name
+
+
