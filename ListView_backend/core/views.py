@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
 from core.models import Team, CustomUser, Board
-from core.serializers import TeamSerializer, UserSerializer , BoardSerializer
+from core.serializers import TeamSerializer, UserSerializer , BoardSerializer, BoardDetailSerializer
 
 
 class TeamList(generics.ListCreateAPIView):
@@ -39,5 +39,5 @@ class BoardList(generics.ListCreateAPIView):
 
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
-    serializer_class = BoardSerializer
+    serializer_class = BoardDetailSerializer
     permission_classes = (permissions.IsAuthenticated,)

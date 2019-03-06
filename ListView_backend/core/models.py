@@ -21,3 +21,9 @@ class Board(models.Model):
 class List(models.Model):
     name = models.CharField(max_length=100)
     belongs_to = models.ForeignKey(Board, related_name='lists', on_delete=models.CASCADE)
+
+class Task(models.Model):
+    name = models.CharField(max_length=100)
+    checked = models.BooleanField()
+    description = models.CharField(max_length=500)
+    belongs_to = models.ForeignKey(List, related_name='tasks', on_delete=models.CASCADE)
