@@ -64,3 +64,39 @@ server "listview.srvz-webapp.he-arc.ch", user: "poweruser", roles: %w{app db web
 set :application, 'ListView'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :repo_url, "git@github.com:HE-Arc/ListView.git"
+
+task :restart_sidekiq do
+  on roles(:worker) do
+    execute :service, "sidekiq restart"
+  end
+end
+after "deploy:published", "restart_sidekiq"
+
+after "deploy:publishing", "uwsgi:restart"
+
+namespace :uwsgi do
+    desc "Restart application"
+    task :restart do
+        on roles(:web) do |h|
+	    execute :sudo, "sv reload uwsgi"
+	end
+    end
+end
+
+after 'deploy:updating', 'python:create_venv'
+
+namespace :python do
+
+    def venv_path
+        File.join(shared_path, "env")
+    end
+
+    desc "Create venv"
+    task :create_venv do
+        on roles([:app, :web]) do |h|
+	    execute "python3.6 -m venv #{venv_path}"
+        execute "source #{venv_path}/bin/activate"
+	    execute "#{venv_path}/bin/pip install -r #{release_path}/backend/requirements.txt"
+        end
+    end
+end

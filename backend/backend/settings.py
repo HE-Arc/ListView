@@ -25,7 +25,7 @@ SECRET_KEY = 'vy7*h-9q=kch5i3mw#l!7@ytm2w#7f!v-s$%5bv!v_=uz#x+kw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['istview.srvz-webapp.he-arc.ch']
 
 
 # Application definition
@@ -140,6 +140,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
+    'istview.srvz-webapp.he-arc.ch',
 )
 
 CORS_ALLOW_CREDENTIALS = True
