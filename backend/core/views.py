@@ -49,7 +49,6 @@ def public(request):
 
 @api_view(['GET'])
 def private(request):
-    print(request.user)
     return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated to see this.'})
 
 

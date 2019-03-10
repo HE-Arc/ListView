@@ -21,7 +21,13 @@
       }
     },
     mounted () {
-      this.downloadTeam()
+      if (this.$store.state.auth.isLogged !== true) {
+        this.$store.watch(() => this.$store.getters['auth/logged'], () => {
+          this.downloadTeam()
+        })
+      } else {
+        this.downloadTeam()
+      }
     },
   }
 </script>

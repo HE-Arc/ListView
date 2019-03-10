@@ -18,6 +18,12 @@ export const mutations = {
   }
 }
 
+export const getters = {
+  logged(state) {
+    return state.isLogged
+  }
+}
+
 export const actions = {
   handleAuthentication () {
     webAuth.parseHash((err, authResult) => {

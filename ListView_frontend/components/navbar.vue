@@ -11,6 +11,9 @@
           <n-link :to="{ name: 'index' }" class="nav-item nav-link" active-class="active" exact>
             Home<span class="sr-only">(current)</span>
           </n-link>
+          <n-link :to="{ name: 'teams' }" class="nav-item nav-link" active-class="active" exact>
+            Teams<span class="sr-only">(current)</span>
+          </n-link>
           <a class="nav-item nav-link" href="#">Board (todo)</a>
         </ul>
         <ul class="navbar-nav ml-auto">
