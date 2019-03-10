@@ -25,19 +25,3 @@ def get_token_auth_header(request):
     token = parts[1]
     return token
 
-
-def requires_scope(required_scope):
-    def require_scope(f):
-        @wraps(f)
-        def decorated(*args, **kwargs):
-            token = get_token_auth_header(args[0])
-            unverified_claims = jwt.get_unverified_claims(token)
-            token_scopes = unverified_claims["scope"].split()
-            for token_scope in token_scopes:
-                if token_scope == required_scope:
-                    return f(*args, **kwargs)
-            response = JsonResponse({'message': 'You dont have access to this resource'})
-            response.status_code = 403
-            return response
-        return decorated
-    return require_scope
