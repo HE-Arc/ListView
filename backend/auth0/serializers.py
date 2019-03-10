@@ -11,11 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id', 'username', 'email', 'name', 'team')
 
-    # def create(self, validated_data, **kwargs):
-    #     user = super().create(validated_data)
-    #     user.set_password(validated_data['password'])
-    #     user.save()
-    #     return user
 
     def update(self, instance, validated_data):
         print(validated_data)
