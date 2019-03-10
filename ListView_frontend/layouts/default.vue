@@ -14,16 +14,14 @@ export default {
     navbar
   },
   mounted () {
-    this.$store.dispatch('http/loadToken')
+    onNuxtReady(()=>{
+      this.$store.dispatch('auth/authenticated')
+    })
   }
 }
 </script>
 
 <style>
-  html {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-  }
+
 
 </style>
