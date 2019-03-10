@@ -1,11 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from auth0.models import CustomUser
 
-
-class CustomUser(AbstractUser):
-    """ Source : https://docs.djangoproject.com/en/2.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
-     Recommand to use a custom, in case we want to add field in the future"""
-    pass
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
@@ -14,13 +9,16 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+
 class Board(models.Model):
     name = models.CharField(max_length=100)
     belongs_to = models.ForeignKey(Team, related_name='boards', on_delete=models.CASCADE)
 
+
 class List(models.Model):
     name = models.CharField(max_length=100)
     belongs_to = models.ForeignKey(Board, related_name='lists', on_delete=models.CASCADE)
+
 
 class Task(models.Model):
     name = models.CharField(max_length=100)

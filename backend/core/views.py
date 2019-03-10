@@ -1,9 +1,12 @@
-from django.contrib.auth.hashers import make_password
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
-from core.models import Team, CustomUser, Board
-from core.serializers import TeamSerializer, UserSerializer , BoardSerializer, BoardDetailSerializer
+from core.models import Team, Board
+from core.serializers import TeamSerializer, BoardSerializer, BoardDetailSerializer
+
+from auth0.views import requires_scope
 
 
 class TeamList(generics.ListCreateAPIView):
@@ -23,10 +26,6 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class UserCreate(generics.CreateAPIView):
-    queryset = CustomUser
-    serializer_class = UserSerializer
-
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
@@ -37,7 +36,24 @@ class BoardList(generics.ListCreateAPIView):
         serializer = BoardSerializer(queryset, many=True)
         return Response(serializer.data)
 
+
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardDetailSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+
+def public(request):
+    return JsonResponse({'message': 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'})
+
+
+@api_view(['GET'])
+def private(request):
+    print(request.user)
+    return JsonResponse({'message': 'Hello from a private endpoint! You need to be authenticated to see this.'})
+
+
+@api_view(['GET'])
+@requires_scope('read:messages')
+def private_scoped(request):
+    return JsonResponse("Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.")

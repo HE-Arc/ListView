@@ -15,7 +15,6 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item nav-link" @click.prevent="changeLog">{{textLog}}</li>
-          <!--<n-link class="nav-item nav-link" :to="{ name: 'login' }" active-class="active" v-else exact>Login</n-link>-->
         </ul>
       </div>
     </nav>
@@ -28,16 +27,16 @@ export default {
   methods: {
     changeLog() {
       if(this.isLogged) {
-        this.$store.dispatch('http/removeToken')
+        this.$store.dispatch('auth/logout')
         this.$router.push({name: 'index'})
       } else {
-        this.$router.push({name: 'login'})
+        this.$store.dispatch('auth/login')
       }
     }
   },
   computed: {
     isLogged() {
-      return this.$store.getters['http/isLogged']
+      return this.$store.state.auth.isLogged
     },
     textLog() {
       if (this.isLogged) {
