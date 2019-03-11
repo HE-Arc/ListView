@@ -60,7 +60,7 @@ export const actions = {
     localStorage.removeItem('access_token')
     localStorage.removeItem('expires_at')
     this.commit('auth/SETLOGGED', false)
-    this.$router.push('/')
+    webAuth.logout();
   },
   authenticated () {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'))
