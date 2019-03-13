@@ -10,6 +10,8 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('boards/', views.BoardList.as_view()),
     path('boards/<int:pk>/', views.BoardDetail.as_view()),
+    path('list/', views.CreateList.as_view()),
+    path('task/', views.CreateTask.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
