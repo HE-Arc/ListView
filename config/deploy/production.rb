@@ -69,7 +69,9 @@ after "deploy:published", "restart_sidekiq"
 after "deploy:publishing", "uwsgi:restart"
 
 after 'deploy:updating', 'python:create_venv'
-after 'deploy:updating', 'nuxtjs:restart'
+after 'deploy:updating', 'nuxtjs:download'
+
+after 'deploy:published', 'nuxtjs:restart'
 
 # Task
 task :restart_sidekiq do
@@ -105,10 +107,14 @@ end
 
 namespace :nuxtjs do
 	desc "Install dependencies and reload nuxtjs"
-	task :restart do
+	task :download do
 		on roles(:web) do |h|
 			execute "cd #{release_path}/ListView_frontend/ && npm install"
 			execute "cd #{release_path}/ListView_frontend/ && nuxt build"
+		end
+	end
+	task :restart do
+		on roles(:web) do |h|
 			execute :sudo, "sv restart nuxtjs"
 		end
 	end
