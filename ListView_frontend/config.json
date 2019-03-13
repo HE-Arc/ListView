@@ -1,0 +1,8 @@
+{
+  "development": {
+    "apiUrl": "http://localhost:8000"
+  },
+  "production": {
+    "apiUrl": "https://listview.srvz-webapp.he-arc.ch"
+  }
+}

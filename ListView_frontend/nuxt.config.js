@@ -55,7 +55,7 @@ module.exports = {
   */
 
   axios: {
-    baseURL: config.apiUrl
+    baseURL: global.gConfig.apiUrl
   },
 
   /*
