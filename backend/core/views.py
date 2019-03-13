@@ -40,7 +40,17 @@ class CreateTask(generics.CreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
 class CreateList(generics.CreateAPIView):
+    queryset = List.objects.all()
+    serializer_class = ListSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
     permission_classes = (permissions.IsAuthenticated,)
