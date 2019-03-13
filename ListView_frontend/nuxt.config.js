@@ -1,5 +1,9 @@
 const pkg = require('./package')
 
+const config = {
+    apiUrl: process.env.NODE_ENV === 'production' ? 'https://listview.srvz-webapp.he-arc.ch' : 'http://localhost:3000',
+}
+
 module.exports = {
   mode: 'universal',
 
@@ -52,7 +56,7 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'http://localhost:8000/'
+    baseURL: config.apiUrl
   },
 
   /*
