@@ -65,14 +65,18 @@ set :application, 'ListView'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :repo_url, "git@github.com:HE-Arc/ListView.git"
 
+after "deploy:published", "restart_sidekiq"
+after "deploy:publishing", "uwsgi:restart"
+
+after 'deploy:updating', 'python:create_venv'
+after 'deploy:updating', 'nuxtjs:restart'
+
+# Task
 task :restart_sidekiq do
   on roles(:worker) do
     execute :service, "sidekiq restart"
   end
 end
-after "deploy:published", "restart_sidekiq"
-
-after "deploy:publishing", "uwsgi:restart"
 
 namespace :uwsgi do
     desc "Restart application"
@@ -82,8 +86,6 @@ namespace :uwsgi do
 	end
     end
 end
-
-after 'deploy:updating', 'python:create_venv'
 
 namespace :python do
 
@@ -99,4 +101,15 @@ namespace :python do
 	    execute "#{venv_path}/bin/pip install -r #{release_path}/backend/requirements.txt"
         end
     end
+end
+
+namespace :nuxtjs do
+	desc "Install dependencies and reload nuxtjs"
+	task :restart do
+		on roles(:web) do |h|
+			execute "cd #{release_path}/ListView_frontend/ && npm install"
+			execute "cd #{release_path}/ListView_frontend/ && nuxt build"
+			execute :sudo, "sv restart nuxtjs"
+		end
+	end
 end
