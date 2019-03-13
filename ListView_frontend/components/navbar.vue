@@ -55,11 +55,13 @@
           showCancelButton: true,
         }, isConfirm => {
           if (isConfirm) {
+            console.log("COUOCU")
             this.$axios.post('/api/teams/', { name: teamName, part_of: [] }).then(result => {
               this.$router.push({ name: 'team-id', params: { id: result.data.id } })
             })
           }
         })
+        console.log("FUCK")
       }
     },
     computed: {
