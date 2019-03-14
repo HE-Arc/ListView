@@ -25,9 +25,19 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class BoardList(generics.ListCreateAPIView):
-    queryset = Board.objects.all()
+    """queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    permission_classes = (permissions.IsAuthenticated,)"""
+
     serializer_class = BoardSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        queryset = Board.objects.all()
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(name__contains=name)
+        return queryset
 
 
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
