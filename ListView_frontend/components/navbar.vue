@@ -16,7 +16,17 @@
           </n-link>
           <a class="nav-item nav-link" href="#">Board (todo)</a>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <div class="navbar-nav ml-auto btn-group">
+          <button type="button" class="btn btn-secondary rounded" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item" type="button" @click="showAlert">Create team</button>
+            <button class="dropdown-item" type="button">TODO Create board</button>
+          </div>
+        </div>
+        <ul class="navbar-nav ml-4">
           <li class="nav-item nav-link" @click.prevent="changeLog">{{textLog}}</li>
         </ul>
       </div>
@@ -25,30 +35,45 @@
 </template>
 
 <script>
-export default {
-  name: 'navbar',
-  methods: {
-    changeLog() {
-      if(this.isLogged) {
-        this.$store.dispatch('auth/logout')
-        this.$router.push({name: 'index'})
-      } else {
-        this.$store.dispatch('auth/login')
+  export default {
+    name: 'navbar',
+    methods: {
+      changeLog () {
+        if (this.isLogged) {
+          this.$store.dispatch('auth/logout')
+          this.$router.push({ name: 'index' })
+        } else {
+          this.$store.dispatch('auth/login')
+        }
+      },
+      async showAlert () {
+        // Use sweetalert2
+        const { value: teamName } = await this.$swal({
+          title: 'New team',
+          inputPlaceholder: 'Team name',
+          input: 'text',
+          showCancelButton: true,
+        }, isConfirm => {
+          if (isConfirm) {
+            this.$axios.post('/api/teams/', { name: teamName, part_of: [] }).then(result => {
+              this.$router.push({ name: 'team-id', params: { id: result.data.id } })
+            })
+          }
+        })
       }
-    }
-  },
-  computed: {
-    isLogged() {
-      return this.$store.state.auth.isLogged
     },
-    textLog() {
-      if (this.isLogged) {
-        return 'logout'
+    computed: {
+      isLogged () {
+        return this.$store.state.auth.isLogged
+      },
+      textLog () {
+        if (this.isLogged) {
+          return 'logout'
+        }
+        return 'login'
       }
-      return 'login'
     }
   }
-}
 </script>
 
 <style scoped>

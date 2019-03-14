@@ -17,6 +17,11 @@ class TeamList(generics.ListCreateAPIView):
         serializer = TeamSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    def perform_create(self, serializer):
+        print(serializer)
+        print("COUCO")
+        serializer.save(part_of=[self.request.user])
+
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()

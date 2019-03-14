@@ -1,5 +1,7 @@
 const pkg = require('./package')
 
+const config = require('./config')
+
 module.exports = {
   mode: 'universal',
 
@@ -45,13 +47,15 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'vue-sweetalert2/nuxt',
   ],
   /*
   ** Axios module configuration
   */
+
   axios: {
-    baseURL: 'http://localhost:8000/'
+    baseURL: global.gConfig.apiUrl
   },
 
   /*
