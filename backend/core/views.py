@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
@@ -14,6 +15,10 @@ class TeamList(generics.ListCreateAPIView):
 
     def list(self, request, **kwargs):
         queryset = request.user.team
+
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(Q(name__contains=name) | Q(boards__name__contains=name)).distinct()
         serializer = TeamSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -30,13 +35,7 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
 class BoardList(generics.ListCreateAPIView):
     serializer_class = BoardSerializer
     permission_classes = (permissions.IsAuthenticated,)
-
-    def get_queryset(self):
-        queryset = Board.objects.all()
-        name = self.request.query_params.get('name', None)
-        if name is not None:
-            queryset = queryset.filter(name__contains=name)
-        return queryset
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
