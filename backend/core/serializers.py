@@ -5,20 +5,20 @@ from auth0.models import CustomUser
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    belongs_to = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
+    list_id = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
 
     class Meta:
         model = Task
-        fields = ('id', 'name', 'checked', 'description', 'belongs_to')
+        fields = ('id', 'name', 'checked', 'description', 'list_id')
 
 
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
-    belongs_to = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
+    board_id = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
 
     class Meta:
         model = List
-        fields = ('id', 'name', 'tasks', 'belongs_to')
+        fields = ('id', 'name', 'tasks', 'board_id')
 
 
 class BoardDetailSerializer(serializers.ModelSerializer):
@@ -30,17 +30,17 @@ class BoardDetailSerializer(serializers.ModelSerializer):
 
 
 class BoardSerializer(serializers.ModelSerializer):
-    belongs_to = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
+    team_id = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
 
     class Meta:
         model = Board
-        fields = ('id', 'name', 'belongs_to')
+        fields = ('id', 'name', 'team_id')
 
 
 class TeamSerializer(serializers.ModelSerializer):
-    part_of = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), many=True)
+    users_id = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), many=True)
     boards = BoardSerializer(many=True, read_only=True)
 
     class Meta:
         model = Team
-        fields = ('id', 'name', 'part_of', 'boards')
+        fields = ('id', 'name', 'users_id', 'boards')

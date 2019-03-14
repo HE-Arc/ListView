@@ -23,7 +23,7 @@ class TeamList(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
-        serializer.save(part_of=[self.request.user])
+        serializer.save(user_id=[self.request.user])
 
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -33,8 +33,8 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class BoardList(generics.ListCreateAPIView):
+    queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = (permissions.IsAuthenticated,)
     permission_classes = (permissions.IsAuthenticated,)
 
 
