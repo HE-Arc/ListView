@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
 
+from auth0.serializers import UserSerializer
 from core.models import Team, Board, Task, List
 from core.serializers import TeamSerializer, BoardSerializer, BoardDetailSerializer, TaskSerializer, ListSerializer
 
@@ -24,7 +25,7 @@ class TeamList(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         data = request.data
         if len(data['users_id']) < 1:
-            data['users_id'] = [request.user.id]
+            data['users_id'] = [UserSerializer(request.user).data]
 
         serializer = TeamSerializer(data=data)
         serializer.is_valid(raise_exception=True)

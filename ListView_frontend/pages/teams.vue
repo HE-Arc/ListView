@@ -1,6 +1,6 @@
 <template>
   <div>
-    <team-component :id="t.id" :name="t.name" v-for="t in teams" :key="t.id"/>
+    <team-component :id="t.id" :name="t.name" :users="t.users_id" :boards="t.boards" v-for="t in teams" :key="t.id"/>
   </div>
 </template>
 

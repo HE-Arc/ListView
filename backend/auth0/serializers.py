@@ -1,15 +1,18 @@
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from rest_framework import serializers
 
 from auth0.models import CustomUser
-from core.serializers import TeamSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    team = TeamSerializer(many=True, read_only=True)
-
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email', 'name', 'team')
+        fields = ('id', 'username', 'email', 'name')
+        extra_kwargs = {
+            'username': {
+                'validators': [UnicodeUsernameValidator()],
+            }
+        }
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)

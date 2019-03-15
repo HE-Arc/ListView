@@ -56,7 +56,7 @@
         }).then(teamName => {
           if (teamName) {
             this.$axios.post('/api/teams/', { name: teamName.value, users_id: [] }).then(result => {
-              this.$router.push({ name: 'team-id', params: { id: result.data.id } })
+              this.$router.push({ name: 'teams'})
             })
           }
         })
