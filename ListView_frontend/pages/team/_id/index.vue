@@ -15,7 +15,6 @@
     methods: {
       downloadTeam () {
         this.$axios.get('/api/teams/' + this.$route.params.id).then(response => {
-          console.log(response)
           this.team = response.data
         })
       }

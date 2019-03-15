@@ -18,16 +18,16 @@
         </ul>
         <div class="navbar-nav ml-auto btn-group">
           <button type="button" class="btn btn-secondary rounded" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
+                  aria-expanded="false" v-show="isLogged">
             <i class="fas fa-plus"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" @click="showAlert">Create team</button>
+            <button class="dropdown-item" type="button" @click="createTeam">Create team</button>
             <button class="dropdown-item" type="button">TODO Create board</button>
           </div>
         </div>
         <ul class="navbar-nav ml-4">
-          <li class="nav-item nav-link" @click.prevent="changeLog">{{textLog}}</li>
+          <li class="nav-item nav-link"  @click="changeLog">{{textLog}}</li>
         </ul>
       </div>
     </nav>
@@ -46,16 +46,16 @@
           this.$store.dispatch('auth/login')
         }
       },
-      async showAlert () {
+      createTeam () {
         // Use sweetalert2
-        const { value: teamName } = await this.$swal({
+        this.$swal({
           title: 'New team',
           inputPlaceholder: 'Team name',
           input: 'text',
           showCancelButton: true,
-        }, isConfirm => {
-          if (isConfirm) {
-            this.$axios.post('/api/teams/', { name: teamName, part_of: [] }).then(result => {
+        }).then(teamName => {
+          if (teamName) {
+            this.$axios.post('/api/teams/', { name: teamName.value, users_id: [] }).then(result => {
               this.$router.push({ name: 'team-id', params: { id: result.data.id } })
             })
           }

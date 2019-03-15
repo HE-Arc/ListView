@@ -1,9 +1,8 @@
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
 from django.db.models import Q
-from rest_framework.response import Response
-from rest_framework import permissions
 from rest_framework import generics
+from rest_framework import permissions
+from rest_framework.response import Response
+
 from core.models import Team, Board, Task, List
 from core.serializers import TeamSerializer, BoardSerializer, BoardDetailSerializer, TaskSerializer, ListSerializer
 
@@ -22,8 +21,15 @@ class TeamList(generics.ListCreateAPIView):
         serializer = TeamSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def perform_create(self, serializer):
-        serializer.save(user_id=[self.request.user])
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        if len(data['users_id']) < 1:
+            data['users_id'] = [request.user.id]
+
+        serializer = TeamSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -43,20 +49,24 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BoardDetailSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+
 class CreateTask(generics.CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+
 class CreateList(generics.CreateAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
 
 class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
