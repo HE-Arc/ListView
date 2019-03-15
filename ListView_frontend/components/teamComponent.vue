@@ -1,6 +1,6 @@
 <template>
   <div class="container my-3 py-2 border border-secondary rounded">
-    <h1>{{name}}</h1>
+    <h1>{{name}} <a @click="deleteTeam" class="text-danger deleteTeam float-right mt-3">Delete team</a></h1>
     <div class="table-responsive">
       <table class="table bg-light border rounded">
         <tbody>
@@ -38,17 +38,47 @@
           boards: this.boards
         }).then(result => {
           this.$parent.getAllTeams()
-        }).catch(error=>{
+        }).catch(error => {
           this.$swal({
-              type: 'error',
-              title: 'Oops...',
-              text: 'An error occured !'
-            })
+            type: 'error',
+            title: 'Oops...',
+            text: 'An error occured !'
+          })
         })
+      },
+      deleteTeam () {
+        this.$swal({
+          type: 'warning',
+          title: `Delete team : ${this.name}`,
+          text: `Are you sure you want to delete team ${this.name} ?`,
+          confirmButtonText: 'Yes, delete it!',
+          showCancelButton: true,
+        }).then(result => {
+            if (result.value) {
+              this.$axios.delete(`/api/teams/${this.id}`).then(() => {
+                this.$swal({
+                  type: 'success',
+                  title: 'Success',
+                  text: 'The team has been deleted !'
+                })
+                this.$parent.getAllTeams()
+              }).catch(error => {
+                this.$swal({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'An error occured !'
+                })
+              })
+            }
+          }
+        )
       }
     }
   }
 </script>
 
 <style scoped>
+  .deleteTeam {
+    font-size: 10pt;
+  }
 </style>
