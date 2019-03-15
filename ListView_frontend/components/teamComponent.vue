@@ -30,20 +30,31 @@
     },
     methods: {
       deleteMember (id_user) {
-        const usersFiltered = this.users.filter(u => u.id !== id_user)
-        this.$axios.patch(`/api/teams/${this.id}/`, {
-          id: this.id,
-          name: this.name,
-          users_id: usersFiltered,
-          boards: this.boards
+        const username = this.users.filter(u => u.id === id_user)[0].name
+        this.$swal({
+          type: 'warning',
+          title: `Delete user : ${username}`,
+          text: `Are you sure you want to delete team ${username} ?`,
+          confirmButtonText: 'Yes, delete it!',
+          showCancelButton: true,
         }).then(result => {
-          this.$parent.getAllTeams()
-        }).catch(error => {
-          this.$swal({
-            type: 'error',
-            title: 'Oops...',
-            text: 'An error occured !'
-          })
+          if (result.value) {
+            const usersFiltered = this.users.filter(u => u.id !== id_user)
+            this.$axios.patch(`/api/teams/${this.id}/`, {
+              id: this.id,
+              name: this.name,
+              users_id: usersFiltered,
+              boards: this.boards
+            }).then(result => {
+              this.$parent.getAllTeams()
+            }).catch(error => {
+              this.$swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'An error occured !'
+              })
+            })
+          }
         })
       },
       deleteTeam () {
