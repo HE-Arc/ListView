@@ -35,7 +35,7 @@ export const actions = {
         this.commit('auth/SETLOGGED', true)
         this.$axios.get('/api/users/').then(response=>{
           this.$axios.patch(`/api/users/${response.data}/`, {
-            name: authResult.idTokenPayload.name,
+            nickname: authResult.idTokenPayload.nickname,
             email: authResult.idTokenPayload.email
           })
         })

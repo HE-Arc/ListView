@@ -7,7 +7,7 @@ from auth0.models import CustomUser
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email', 'name')
+        fields = ('id', 'username', 'email', 'nickname')
         extra_kwargs = {
             'username': {
                 'validators': [UnicodeUsernameValidator()],
@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
+        instance.nickname = validated_data.get('nickname', instance.nickname)
         instance.email = validated_data.get('email', instance.email)
         instance.save()
         return instance
