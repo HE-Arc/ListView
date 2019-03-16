@@ -14,6 +14,7 @@ urlpatterns = [
     path('list/<int:pk>/', views.ListDetail.as_view()),
     path('task/', views.CreateTask.as_view()),
     path('task/<int:pk>/', views.TaskDetail.as_view()),
+    path('user/', views.UserList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

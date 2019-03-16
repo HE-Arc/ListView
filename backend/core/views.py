@@ -4,9 +4,21 @@ from rest_framework import permissions
 from rest_framework.response import Response
 
 from auth0.serializers import UserSerializer
+from auth0.models import CustomUser
 from core.models import Team, Board, Task, List
 from core.serializers import TeamSerializer, BoardSerializer, BoardDetailSerializer, TaskSerializer, ListSerializer
 
+class UserList(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def list(self, request, **kwargs):
+        queryset = CustomUser.objects.all()
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(Q(username__contains=name) | Q(email__contains=name) | Q(nickname__contains=name)).distinct()
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class TeamList(generics.ListCreateAPIView):
     queryset = Team.objects.all()
