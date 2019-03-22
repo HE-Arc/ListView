@@ -110,7 +110,6 @@
       addMember (id_user) {
         const usersAll = this.users
         usersAll.push(this.userFound.filter(u => u.id === id_user)[0])
-        console.log(usersAll)
         this.$axios.patch(`/api/teams/${this.id}/`, {
           id: this.id,
           name: this.name,
