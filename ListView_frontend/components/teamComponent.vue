@@ -14,6 +14,12 @@
         </tr>
         </tbody>
       </table>
+      <hr class="my-3">
+      <small>Add user to the team</small>
+      <div class="mb-1"></div>
+      <div>
+        <input type="text" class="form-control" placeholder="Username" v-model="textSearch">
+      </div>
     </div>
 
   </div>
@@ -27,6 +33,11 @@
       name: String,
       users: Array,
       boards: Array,
+    },
+    data() {
+      return {
+        textSearch: '',
+      }
     },
     methods: {
       deleteMember (id_user) {
@@ -83,6 +94,11 @@
             }
           }
         )
+      }
+    },
+    watch: {
+      textSearch: function (val) {
+
       }
     }
   }
