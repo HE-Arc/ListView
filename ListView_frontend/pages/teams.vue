@@ -23,13 +23,13 @@
       }
     },
     mounted () {
-      if (this.$store.state.auth.isLogged !== true) {
-        this.$store.watch(() => this.$store.getters['auth/logged'], () => {
+      onNuxtReady(()=>{
+        if (this.$store.state.auth.isLogged === true) {
           this.getAllTeams()
-        })
-      } else {
-        this.getAllTeams()
-      }
+        } else {
+          this.$store.dispatch('auth/login')
+        }
+      })
     }
   }
 </script>

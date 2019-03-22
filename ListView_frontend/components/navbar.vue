@@ -11,10 +11,12 @@
           <n-link :to="{ name: 'index' }" class="nav-item nav-link" active-class="active" exact>
             Home<span class="sr-only">(current)</span>
           </n-link>
-          <n-link :to="{ name: 'teams' }" class="nav-item nav-link" active-class="active" exact>
+          <n-link :to="{ name: 'dashboard' }" class="nav-item nav-link" active-class="active" v-if="isLogged" exact>
+            Dashboard<span class="sr-only">(current)</span>
+          </n-link>
+          <n-link :to="{ name: 'teams' }" class="nav-item nav-link" active-class="active" v-if="isLogged" exact>
             Teams<span class="sr-only">(current)</span>
           </n-link>
-          <a class="nav-item nav-link" href="#">Board (todo)</a>
         </ul>
         <div class="navbar-nav ml-auto btn-group">
           <button type="button" class="btn btn-secondary rounded" data-toggle="dropdown" aria-haspopup="true"
