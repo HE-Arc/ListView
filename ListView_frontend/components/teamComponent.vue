@@ -1,27 +1,38 @@
 <template>
-  <div class="container my-3 py-2 border border-secondary rounded">
+  <div class="container mt-3 py-2 border border-secondary rounded">
     <h1>{{name}} <a @click="deleteTeam" class="text-danger deleteTeam float-right mt-3">Delete team</a></h1>
     <div class="table-responsive">
       <table class="table bg-light border rounded">
         <tbody>
         <tr v-for="u in users">
-          <td>{{u.username}}</td>
           <td>{{u.email}}</td>
-          <td>{{u.name}}</td>
+          <td>{{u.nickname}}</td>
           <td>
             <button class="btn btn-danger" @click="deleteMember(u.id)"><i class="fal fa-trash-alt"></i></button>
           </td>
         </tr>
         </tbody>
       </table>
-      <hr class="my-3">
-      <small>Add user to the team</small>
-      <div class="mb-1"></div>
-      <div>
-        <input type="text" class="form-control" placeholder="Username" v-model="textSearch">
-      </div>
     </div>
-
+    <hr>
+    <small>Add user to the team</small>
+    <div class="mb-1"></div>
+    <div>
+      <input type="text" class="form-control" placeholder="Username" v-model="textSearch">
+    </div>
+    <div class="table-responsive mt-3">
+      <table class="table bg-light border rounded">
+        <tbody>
+        <tr v-for="u in userFound">
+          <td>{{u.email}}</td>
+          <td>{{u.nickname}}</td>
+          <td>
+            <button class="btn btn-primary" @click="addMember(u.id)"><i class="fal fa-user-plus"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -34,9 +45,10 @@
       users: Array,
       boards: Array,
     },
-    data() {
+    data () {
       return {
         textSearch: '',
+        userFound: [],
       }
     },
     methods: {
@@ -94,11 +106,38 @@
             }
           }
         )
+      },
+      addMember (id_user) {
+        const usersAll = this.users
+        usersAll.push(this.userFound.filter(u => u.id === id_user)[0])
+        console.log(usersAll)
+        this.$axios.patch(`/api/teams/${this.id}/`, {
+          id: this.id,
+          name: this.name,
+          users_id: usersAll,
+          boards: this.boards
+        }).then(result => {
+          this.$parent.getAllTeams()
+          this.refreshUserFound()
+        }).catch(error => {
+          this.$swal({
+            type: 'error',
+            title: 'Oops...',
+            text: 'An error occured !'
+          })
+        })
+      },
+      refreshUserFound () {
+        const ids = this.users.map(u => u.id)
+        this.userFound = this.userFound.filter(u => ids.indexOf(u.id) < 0)
       }
     },
     watch: {
       textSearch: function (val) {
-
+        this.$axios.get(`/api/user?name=${val}`).then(result => {
+          this.userFound = result.data
+          this.refreshUserFound()
+        })
       }
     }
   }
