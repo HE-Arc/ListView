@@ -3,6 +3,8 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
 
+from rest_framework.exceptions import PermissionDenied
+
 from auth0.serializers import UserSerializer
 from auth0.models import CustomUser
 from core.models import Team, Board, Task, List
@@ -50,6 +52,12 @@ class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TeamSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        data = Team.objects.filter(id=id, users_id__username=self.request.user.username)
+        if not data:
+            raise PermissionDenied(detail=None, code=403)
+        return data
 
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()

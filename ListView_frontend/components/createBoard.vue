@@ -25,7 +25,7 @@
 <script>
   export default {
     name: 'createBoard',
-    data() {
+    data () {
       return {
         teams: [],
         boardName: '',
@@ -33,19 +33,25 @@
       }
     },
     methods: {
-      getTeamList() {
+      getTeamList () {
         this.$axios.get('/api/teams/').then(result => {
           this.teams = result.data
         })
       },
-      closeModal() {
+      closeModal () {
         this.$modal.hide('create-board')
       },
-      sendBoard() {
-        if(this.boardName !== "" && this.selectedTeam !== "") {
-          this.$axios.post('/api/boards/', {name: this.boardName, team_id: this.selectedTeam}).then(result => {
+      sendBoard () {
+        if (this.boardName !== '' && this.selectedTeam !== '') {
+          this.$axios.post('/api/boards/', { name: this.boardName, team_id: this.selectedTeam }).then(result => {
             this.closeModal()
             //TODO redirect to board page
+          }).catch(error => {
+            this.$swal({
+              type: 'error',
+              title: 'Oops...',
+              text: 'An error occured !'
+            })
           })
         }
       }
