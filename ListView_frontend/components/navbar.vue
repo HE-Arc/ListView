@@ -25,11 +25,12 @@
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item" type="button" @click="createTeam">Create team</button>
-            <button class="dropdown-item" type="button">TODO Create board</button>
+            <button class="dropdown-item" type="button" @click="$modal.show('create-board')">Create board
+            </button>
           </div>
         </div>
         <ul class="navbar-nav ml-4">
-          <li class="nav-item nav-link"  @click="changeLog">{{textLog}}</li>
+          <li class="nav-item nav-link" @click="changeLog">{{textLog}}</li>
         </ul>
       </div>
     </nav>
@@ -58,7 +59,7 @@
         }).then(teamName => {
           if (teamName) {
             this.$axios.post('/api/teams/', { name: teamName.value, users_id: [] }).then(result => {
-              this.$router.push({ name: 'teams'})
+              this.$router.push({ name: 'teams' })
             })
           }
         })

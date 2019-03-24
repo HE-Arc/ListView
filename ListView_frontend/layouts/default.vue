@@ -2,16 +2,18 @@
   <div>
     <navbar />
     <nuxt />
-
+    <create-board />
   </div>
 </template>
 
 <script>
 import navbar from '../components/navbar'
+import CreateBoard from '../components/createBoard'
 
 export default {
   components: {
-    navbar
+    CreateBoard,
+    navbar,
   },
   mounted () {
     onNuxtReady(()=>{

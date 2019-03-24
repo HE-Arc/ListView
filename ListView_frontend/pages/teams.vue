@@ -23,11 +23,18 @@
       }
     },
     mounted () {
-      onNuxtReady(()=>{
+      this.$nextTick(() => {
         if (this.$store.state.auth.isLogged === true) {
           this.getAllTeams()
         } else {
-          this.$store.dispatch('auth/login')
+          this.$store.watch(()=> this.$store.getters['auth/logged'], () => {
+            this.getAllTeams() //Wait, while checking if session is logged
+          })
+          setTimeout(()=>{ //If we aren't logged after 1s redirect to login
+            if(this.$store.state.auth.isLogged === false) {
+              this.$store.dispatch('auth/login')
+            }
+          }, 1000)
         }
       })
     }
