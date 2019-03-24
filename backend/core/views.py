@@ -49,7 +49,6 @@ class TeamList(generics.ListCreateAPIView):
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
-    #queryset = Team.objects.filter(user_id_username=self.request.user)
     serializer_class = TeamSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
