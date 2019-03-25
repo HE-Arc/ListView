@@ -1,8 +1,9 @@
 import auth0 from 'auth0-js'
+const config = require('~/config')
 
 const webAuth = new auth0.WebAuth({
   domain: 'stevenj.eu.auth0.com',
-  redirectUri: 'http://localhost:3000/callback',
+  redirectUri: global.gConfig.callbackUrl,
   clientID: 'eNA0OohCw2UYecKukT05w5bbC4rzKdqE',
   audience: 'https://django-vue.com',
   responseType: 'token id_token',

@@ -1,8 +1,10 @@
 {
   "development": {
-    "apiUrl": "http://localhost:8000"
+    "apiUrl": "http://localhost:8000",
+    "callbackUrl": "http://localhost:3000/callback"
   },
   "production": {
-    "apiUrl": "https://listview.srvz-webapp.he-arc.ch"
+    "apiUrl": "https://listview.srvz-webapp.he-arc.ch",
+    "callbackUrl": "https://listview.srvz-webapp.he-arc.ch/callback"
   }
 }

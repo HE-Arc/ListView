@@ -1,6 +1,6 @@
 <template>
   <div>
-    <team-board v-for="t in teams" :name="t.name" :boards="t.boards"/>
+    <team-board v-for="t in teams" :name="t.name" :boards="t.boards" :key="t.id"/>
   </div>
 </template>
 
