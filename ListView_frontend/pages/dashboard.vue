@@ -16,7 +16,7 @@
       return {
         teams: [],
       }
-    },
+},
     methods: {
       getAllTeams () {
         this.$axios.get('/api/teams/').then(response => {
