@@ -2,8 +2,11 @@
   <div class="container border rounded mt-5">
     <h1>{{name}}</h1>
     <div class="row">
-      <div class="col-md-3 boardPane text-center py-5 border border-secondary rounded m-2 bg-light" v-for="b in boards"
-           @click="$router.push({name: 'board-boardId', params: {boardId: b.id}})">{{b.name}}
+      <div class="col-md-3 text-center p-2" v-for="b in boards"
+           @click="$router.push({name: 'board-boardId', params: {boardId: b.id}})">
+        <div class="boardPane border border-secondary rounded py-5 bg-light">
+          {{b.name}}
+        </div>
       </div>
     </div>
   </div>
