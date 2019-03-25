@@ -23,5 +23,5 @@ class List(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=100)
     checked = models.BooleanField()
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, null=True, blank=True)
     list_id = models.ForeignKey(List, related_name='tasks', on_delete=models.CASCADE)

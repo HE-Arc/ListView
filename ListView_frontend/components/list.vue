@@ -33,7 +33,6 @@
             this.$axios.post('/api/task/', {
               name: taskName.value,
               checked: false,
-              description: "salut",
               list_id: this.id
             }).then(result => {
               this.$parent.loadLists()
