@@ -46,29 +46,34 @@ class TeamList(generics.ListCreateAPIView):
         serializer.save()
         return Response(serializer.data)
 
+class TeamAccessPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        id = view.kwargs['pk']
+        team = Team.objects.filter(id=id, users_id__username=request.user.username).exists()
+        return team
 
 class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_queryset(self):
-        id = self.kwargs['pk']
-        data = Team.objects.filter(id=id, users_id__username=self.request.user.username)
-        if not data:
-            raise PermissionDenied(detail=None, code=403)
-        return data
+    permission_classes = (permissions.IsAuthenticated,TeamAccessPermission,)
 
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class BoardAccessPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        id = view.kwargs['pk']
+        board = Board.objects.filter(id=id, team_id__users_id__username=request.user.username).exists()
+        return board
 
 class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardDetailSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,BoardAccessPermission,)
 
 
 class CreateTask(generics.CreateAPIView):
@@ -76,11 +81,17 @@ class CreateTask(generics.CreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class TaskAccessPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        id = view.kwargs['pk']
+        task = Task.objects.filter(id=id, list_id__board_id__team_id__users_id__username=request.user.username).exists()
+        return task
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,TaskAccessPermission)
 
 
 class CreateList(generics.CreateAPIView):
@@ -88,8 +99,14 @@ class CreateList(generics.CreateAPIView):
     serializer_class = ListSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class ListAccessPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        id = view.kwargs['pk']
+        list = List.objects.filter(id=id, board_id__team_id__users_id__username=request.user.username).exists()
+        return list
 
 class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,ListAccessPermission,)
