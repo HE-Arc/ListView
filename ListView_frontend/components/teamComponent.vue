@@ -8,7 +8,7 @@
           <td>{{u.email}}</td>
           <td>{{u.nickname}}</td>
           <td>
-            <button class="btn btn-danger" @click="deleteMember(u.id)"><i class="fal fa-trash-alt"></i></button>
+            <button v-if="users.length > 1" class="btn btn-danger" @click="deleteMember(u.id)"><i class="fal fa-trash-alt"></i></button>
           </td>
         </tr>
         </tbody>

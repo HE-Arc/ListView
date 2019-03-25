@@ -40,7 +40,7 @@ export const actions = {
           })
         })
       }
-      this.$router.replace('/')
+      this.$router.replace({name: 'dashboard'})
     })
   },
   requireAuth ({ commit, state }, { to, from, next }) {
