@@ -1,6 +1,6 @@
 <template>
   <div>
-    <modal name="create-board" transition="pop-out" @before-open="getTeamList">
+    <modal :adaptive=true name="create-board" transition="pop-out" @before-open="getTeamList">
       <form novalidate class="container my-2">
         <div class="form-group">
           <label for="boardName">Board name</label>
