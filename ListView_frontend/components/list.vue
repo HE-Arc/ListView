@@ -1,7 +1,7 @@
 <template>
   <div class="border border-secondary rounded my-2 px-1">
     <h1>{{name}}</h1>
-    <task :name="t.name" v-for="t in tasks" :key="i"/>
+    <task :taskO="t" v-for="t in tasks" :key="t.id"/>
     <div class="border border-secondary rounded my-1 bg-secondary createTask" @click="createTask">
       <i class="fas fa-plus"></i>
     </div>
@@ -29,7 +29,7 @@
           input: 'text',
           showCancelButton: true,
         }).then(taskName => {
-          if (taskName) {
+          if (taskName.value) {
             this.$axios.post('/api/task/', {
               name: taskName.value,
               checked: false,
