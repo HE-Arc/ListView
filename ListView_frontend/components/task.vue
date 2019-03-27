@@ -4,7 +4,7 @@
       <div class="col-auto ml-2 pt-1">
         <input type="checkbox" v-model="isChecked">
       </div>
-      <div class="col pr-5 pt-1" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
+      <div class="col pr-5 pr-sm-1 pl-0 pt-1" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
         {{taskO.name}}
       </div>
       <div class="col-auto mr-2">
