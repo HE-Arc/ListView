@@ -2,8 +2,7 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
-
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.pagination import PageNumberPagination
 
 from auth0.serializers import UserSerializer
 from auth0.models import CustomUser
@@ -15,11 +14,15 @@ class UserList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, **kwargs):
-        queryset = CustomUser.objects.all()
+        queryset = CustomUser.objects.none()
         name = self.request.query_params.get('name', None)
         if name is not None:
+            queryset = CustomUser.objects.all()
             queryset = queryset.filter(Q(username__contains=name) | Q(email__contains=name) | Q(nickname__contains=name)).distinct()
-        serializer = UserSerializer(queryset, many=True)
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        result_page = paginator.paginate_queryset(queryset, request)
+        serializer = UserSerializer(result_page, many=True)
         return Response(serializer.data)
 
 class TeamList(generics.ListCreateAPIView):
