@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from datetime import timedelta
 import json
+from decouple import config
 from six.moves.urllib import request
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
@@ -27,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vy7*h-9q=kch5i3mw#l!7@ytm2w#7f!v-s$%5bv!v_=uz#x+kw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('debug', False)
 
 ALLOWED_HOSTS = ['listview.srvz-webapp.he-arc.ch', 'localhost']
 
@@ -90,12 +91,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {  # Debug databases on sqlite
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('GROUPNAME', 'listview'),
+            'USER': os.getenv('GROUPNAME', 'listview'),
+            'PASSWORD': os.getenv('PASSWORD', '1234'),
+            'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+            'PORT': os.getenv('POSTGRES_PORT', 5432),
+        }
+    }
 
 AUTH_USER_MODEL = 'auth0.CustomUser'
 
