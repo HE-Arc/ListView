@@ -61,7 +61,9 @@ export const actions = {
     localStorage.removeItem('access_token')
     localStorage.removeItem('expires_at')
     this.commit('auth/SETLOGGED', false)
-    webAuth.logout();
+    webAuth.logout({
+      returnTo: global.gConfig.baseUrl,
+    })
   },
   authenticated () {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'))

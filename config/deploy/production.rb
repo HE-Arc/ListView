@@ -115,7 +115,7 @@ namespace :nuxtjs do
 	end
 	task :restart do
 		on roles(:web) do |h|
-			execute :sudo, "sv restart nuxtjs"
+			execute :sudo, "sv reload nuxtjs"
 		end
 	end
 end
