@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid p-4">
-    <h1>{{$route.params.boardId}}</h1>
+    <h1 class="display-3 text-center">{{name}}</h1>
     <div class="row text-center">
       <div class="col-md-2" v-for="l in lists">
         <list :name="l.name" :key="l.id" :tasks="l.tasks" :id="l.id"></list>
@@ -25,6 +25,7 @@
     data () {
       return {
         lists: [],
+        name: "",
       }
     },
     mounted () {
@@ -47,6 +48,7 @@
       loadLists () {
         this.$axios.get(`/api/boards/${this.$route.params.boardId}`).then(result => {
           this.lists = result.data.lists
+          this.name = result.data.name
         })
       },
       createList () {
@@ -65,7 +67,7 @@
             })
           }
         })
-      }
+      },
     }
   }
 </script>

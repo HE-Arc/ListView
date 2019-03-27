@@ -1,9 +1,11 @@
 <template>
-  <div class="border border-secondary rounded my-2 px-1">
-    <h1>{{name}}</h1>
+  <div class="border border-secondary rounded my-2 px-1 bg-info">
+    <h3>{{name}}</h3>
     <task :taskO="t" v-for="t in tasks" :key="t.id"/>
-    <div class="border border-secondary rounded my-1 bg-secondary createTask" @click="createTask">
-      <i class="fas fa-plus"></i>
+    <div class="bg-white border border-secondary rounded my-1">
+      <div class="bg-secondary createTask py-1" @click="createTask">
+        <i class="fas fa-plus"></i>
+      </div>
     </div>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <template>
-  <div class="border border-secondary rounded my-1">
-    <div class="row">
+  <div class="border border-secondary rounded my-1 py-1 bg-white" @click="isChecked = !isChecked">
+    <div class="row" data-toggle="tooltip" data-placement="bottom" :title="taskO.description">
       <div class="col-auto ml-2">
         <input type="checkbox" v-model="isChecked">
       </div>
-      <div class="col pr-5">
+      <div class="col pr-5" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
         {{taskO.name}}
       </div>
     </div>
@@ -35,6 +35,6 @@
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>
