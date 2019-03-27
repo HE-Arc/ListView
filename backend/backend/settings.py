@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_jwt',
     'corsheaders',
+    'django_extensions',
 
     # Local Apps
     'core',
