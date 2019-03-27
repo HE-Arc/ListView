@@ -1,11 +1,14 @@
 <template>
   <div class="border border-secondary rounded my-1 py-1 bg-white" @click="isChecked = !isChecked">
     <div class="row" data-toggle="tooltip" data-placement="bottom" :title="taskO.description">
-      <div class="col-auto ml-2">
+      <div class="col-auto ml-2 pt-1">
         <input type="checkbox" v-model="isChecked">
       </div>
-      <div class="col pr-5" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
+      <div class="col pr-5 pt-1" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
         {{taskO.name}}
+      </div>
+      <div class="col-auto mr-2">
+        <button class="btn btn-danger" @click.stop="deleteTask"><i class="fal fa-trash-alt"></i></button>
       </div>
     </div>
   </div>
@@ -24,6 +27,13 @@
     },
     mounted () {
       this.isChecked = this.taskO.checked
+    },
+    methods: {
+      deleteTask () {
+        this.$axios.delete(`api/task/${this.taskO.id}`).then(result => {
+          this.$parent.$parent.loadLists()
+        })
+      }
     },
     watch: {
       isChecked: function (value) {
