@@ -1,10 +1,10 @@
 <template>
-  <div class="border border-secondary rounded my-1 py-1 bg-white" @click="isChecked = !isChecked">
+  <div class="border border-secondary rounded my-1 py-1 bg-white">
     <div class="row" data-toggle="tooltip" data-placement="bottom" :title="taskO.description">
       <div class="col-auto ml-2 pt-1">
         <input type="checkbox" v-model="isChecked">
       </div>
-      <div class="col pr-5 pr-sm-1 pl-0 pt-1" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]">
+      <div class="col pr-5 pr-sm-1 pl-0 pt-1" :style="[isChecked ? {opacity: 0.5} : {opacity : 1}]" @click="modifyTask">
         {{taskO.name}}
       </div>
       <div class="col-auto mr-2">
@@ -29,6 +29,11 @@
       this.isChecked = this.taskO.checked
     },
     methods: {
+      modifyTask () {
+        this.$store.commit('utils/SETLISTTOADDTASK', this.id)
+        this.$store.commit('utils/SETTASKTOMANAGE', this.taskO)
+        this.$store.commit('utils/SETSHOWMANAGETASK', true)
+      },
       deleteTask () {
         this.$swal({
           type: 'warning',

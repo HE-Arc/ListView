@@ -25,22 +25,8 @@
     },
     methods: {
       createTask () {
-        this.$swal({
-          title: 'New task',
-          inputPlaceholder: 'Task name',
-          input: 'text',
-          showCancelButton: true,
-        }).then(taskName => {
-          if (taskName.value) {
-            this.$axios.post('/api/task/', {
-              name: taskName.value,
-              checked: false,
-              list_id: this.id
-            }).then(result => {
-              this.$parent.loadLists()
-            })
-          }
-        })
+        this.$store.commit('utils/SETLISTTOADDTASK', this.id)
+        this.$store.commit('utils/SETSHOWMANAGETASK', true)
       }
     }
   }

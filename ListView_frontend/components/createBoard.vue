@@ -1,34 +1,32 @@
 <template>
-  <div>
-    <div class="modal fade" id="createBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Create board</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form novalidate class="container my-2">
-              <div class="form-group">
-                <label for="boardName">Board name</label>
-                <input type="text" class="form-control" id="boardName" v-model="boardName">
-              </div>
-              <div class="form-group">
-                <label for="teamSelect">Choose the team</label>
-                <select id="teamSelect" class="form-control" v-model="selectedTeam">
-                  <option disabled value="">Please select a team</option>
-                  <option :value="t.id" v-for="t in teams">{{t.name}}</option>
-                </select>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success" @click="sendBoard">Create</button>
-          </div>
+  <div class="modal fade" id="createBoardModal" tabindex="-1" role="dialog" aria-labelledby="createBoardLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createBoardLabel">Create board</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form novalidate class="container my-2">
+            <div class="form-group">
+              <label for="boardName">Board name</label>
+              <input type="text" class="form-control" id="boardName" v-model="boardName">
+            </div>
+            <div class="form-group">
+              <label for="teamSelect">Choose the team</label>
+              <select id="teamSelect" class="form-control" v-model="selectedTeam">
+                <option disabled value="">Please select a team</option>
+                <option :value="t.id" v-for="t in teams">{{t.name}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" @click="sendBoard">Create</button>
         </div>
       </div>
     </div>
