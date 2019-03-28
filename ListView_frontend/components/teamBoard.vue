@@ -36,7 +36,13 @@
           if(boardName.value) {
             this.$axios.post('/api/boards/', {name: boardName.value, team_id: this.teamId}).then(result => {
               this.$parent.getAllTeams()
+            }).catch(error => {
+            this.$swal({
+              type: 'error',
+              title: 'Oops...',
+              text: 'An error occured !'
             })
+          })
           }
         })
       }

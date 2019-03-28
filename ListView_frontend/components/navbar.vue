@@ -25,7 +25,7 @@
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item" type="button" @click="createTeam">Create team</button>
-            <button class="dropdown-item" type="button" @click="$modal.show('create-board')">Create board
+            <button class="dropdown-item" type="button" @click="$store.commit('utils/SETSHOWCREATEFORM', true)">Create board
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@
           input: 'text',
           showCancelButton: true,
         }).then(teamName => {
-          if (teamName) {
+          if (teamName.value) {
             this.$axios.post('/api/teams/', { name: teamName.value, users_id: [] }).then(result => {
               if(this.$route.path == '/teams') {
                 this.$store.commit('utils/SETSHOULDREFRESH', true)

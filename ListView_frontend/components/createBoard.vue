@@ -1,24 +1,37 @@
 <template>
   <div>
-    <modal :adaptive=true name="create-board" transition="pop-out" @before-open="getTeamList">
-      <form novalidate class="container my-2">
-        <div class="form-group">
-          <label for="boardName">Board name</label>
-          <input type="text" class="form-control" id="boardName" v-model="boardName">
+    <div class="modal fade" id="createBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form novalidate class="container my-2">
+              <div class="form-group">
+                <label for="boardName">Board name</label>
+                <input type="text" class="form-control" id="boardName" v-model="boardName">
+              </div>
+              <div class="form-group">
+                <label for="teamSelect">Choose the team</label>
+                <select id="teamSelect" class="form-control" v-model="selectedTeam">
+                  <option disabled value="">Please select a team</option>
+                  <option :value="t.id" v-for="t in teams">{{t.name}}</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" @click="sendBoard">Create</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="teamSelect">Choose the team</label>
-          <select id="teamSelect" class="form-control" v-model="selectedTeam">
-            <option disabled value="">Please select a team</option>
-            <option :value="t.id" v-for="t in teams">{{t.name}}</option>
-          </select>
-        </div>
-        <div class="form-row mt-5">
-          <button class="mx-3 col btn btn-success" @click="sendBoard">Create</button>
-          <button class="mx-3 col btn btn-danger" @click="closeModal">Cancel</button>
-        </div>
-      </form>
-    </modal>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +45,11 @@
         selectedTeam: '',
       }
     },
+    mounted () {
+      $('#createBoardModal').on('hidden.bs.modal', () => {
+        this.closeModal()
+      })
+    },
     methods: {
       getTeamList () {
         this.$axios.get('/api/teams/').then(result => {
@@ -39,13 +57,13 @@
         })
       },
       closeModal () {
-        this.$modal.hide('create-board')
+        this.$store.commit('utils/SETSHOWCREATEFORM', false)
       },
       sendBoard () {
         if (this.boardName !== '' && this.selectedTeam !== '') {
           this.$axios.post('/api/boards/', { name: this.boardName, team_id: this.selectedTeam }).then(result => {
             this.closeModal()
-            //TODO redirect to board page
+            this.$router.push({ name: 'board-boardId', params: { boardId: result.data.id } })
           }).catch(error => {
             this.$swal({
               type: 'error',
@@ -53,6 +71,21 @@
               text: 'An error occured !'
             })
           })
+        }
+      }
+    },
+    computed: {
+      showModal () {
+        return this.$store.getters['utils/getShowCreateBoard']
+      }
+    },
+    watch: {
+      showModal (newValue, oldValue) {
+        if (newValue === true) {
+          this.getTeamList()
+          $('#createBoardModal').modal('show')
+        } else {
+          $('#createBoardModal').modal('hide')
         }
       }
     }
