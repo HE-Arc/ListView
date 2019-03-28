@@ -4,6 +4,10 @@
     <div class="row">
       <div class="col-md-3 p-2" v-for="b in boards"
            @click="$router.push({name: 'board-boardId', params: {boardId: b.id}})">
+        <div class="float-right pr-2 pt-2">
+          <button class="btn btn-danger deleteBoard" @click.stop="deleteBoard(b)"><i class="fal fa-trash-alt"></i>
+          </button>
+        </div>
         <div class="boardPane border border-secondary rounded py-5 bg-light">
           {{b.name}}
         </div>
@@ -33,16 +37,31 @@
           input: 'text',
           showCancelButton: true,
         }).then(boardName => {
-          if(boardName.value) {
-            this.$axios.post('/api/boards/', {name: boardName.value, team_id: this.teamId}).then(result => {
+          if (boardName.value) {
+            this.$axios.post('/api/boards/', { name: boardName.value, team_id: this.teamId }).then(result => {
               this.$parent.getAllTeams()
             }).catch(error => {
-            this.$swal({
-              type: 'error',
-              title: 'Oops...',
-              text: 'An error occured !'
+              this.$swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'An error occured !'
+              })
             })
-          })
+          }
+        })
+      },
+      deleteBoard (b) {
+        this.$swal({
+          type: 'warning',
+          title: `Delete board : ${b.name}`,
+          text: `Are you sure you want to delete task ${b.name} ?`,
+          confirmButtonText: 'Yes, delete it!',
+          showCancelButton: true,
+        }).then(result => {
+          if (result.value) {
+            this.$axios.delete(`/api/boards/${b.id}`).then(result => {
+              this.$parent.getAllTeams()
+            })
           }
         })
       }
@@ -65,6 +84,15 @@
   }
 
   .createBoard:hover {
+    opacity: 1;
+  }
+
+  .deleteBoard {
+    font-size: 10pt;
+    opacity: 0.5;
+  }
+
+  .deleteBoard:hover {
     opacity: 1;
   }
 </style>

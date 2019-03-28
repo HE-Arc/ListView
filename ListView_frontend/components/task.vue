@@ -32,8 +32,8 @@
       deleteTask () {
         this.$swal({
           type: 'warning',
-          title: `Delete user : ${this.name}`,
-          text: `Are you sure you want to delete team ${this.name} ?`,
+          title: `Delete task : ${this.name}`,
+          text: `Are you sure you want to delete task ${this.name} ?`,
           confirmButtonText: 'Yes, delete it!',
           showCancelButton: true,
         }).then(result => {
