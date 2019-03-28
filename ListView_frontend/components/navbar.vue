@@ -59,7 +59,11 @@
         }).then(teamName => {
           if (teamName) {
             this.$axios.post('/api/teams/', { name: teamName.value, users_id: [] }).then(result => {
-              this.$router.push({ name: 'teams' })
+              if(this.$route.path == '/teams') {
+                this.$store.commit('utils/SETSHOULDREFRESH', true)
+              } else {
+               this.$router.push({ name: 'teams' })
+              }
             })
           }
         })

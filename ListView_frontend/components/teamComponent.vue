@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3 py-2 border border-secondary rounded">
+  <div class="container my-3 py-2 border border-secondary rounded">
     <h1>{{name}} <a @click="deleteTeam" class="text-danger deleteTeam float-right mt-3">Delete team</a></h1>
     <div class="table-responsive">
       <table class="table bg-light border rounded">

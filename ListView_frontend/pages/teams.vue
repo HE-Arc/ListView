@@ -37,7 +37,20 @@
           }, 1000)
         }
       })
-    }
+    },
+    computed: {
+      shouldRefresh() {
+        return this.$store.getters['utils/getShouldRefreshTeam']
+      }
+    },
+    watch: {
+      shouldRefresh(newValue, oldValue) {
+        if(newValue===true) {
+          this.getAllTeams()
+          this.$store.commit('utils/SETSHOULDREFRESH', false)
+        }
+      }
+    },
   }
 </script>
 
