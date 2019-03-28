@@ -6,7 +6,6 @@
         <tbody>
         <tr v-for="u in users">
           <td>{{u.email}}</td>
-          <td>{{u.nickname}}</td>
           <td>
             <button v-if="users.length > 1" class="btn btn-danger" @click="deleteMember(u.id)"><i class="fal fa-trash-alt"></i></button>
           </td>
@@ -25,7 +24,6 @@
         <tbody>
         <tr v-for="u in userFound">
           <td>{{u.email}}</td>
-          <td>{{u.nickname}}</td>
           <td>
             <button class="btn btn-primary" @click="addMember(u.id)"><i class="fal fa-user-plus"></i></button>
           </td>

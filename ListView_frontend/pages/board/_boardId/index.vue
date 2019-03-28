@@ -2,7 +2,7 @@
   <div class="container-fluid p-4">
     <h1 class="display-3 text-center">{{name}}</h1>
     <div class="row text-center">
-      <div class="col-lg-2 col-md-4 col-sm-6" v-for="l in lists">
+      <div class="col-auto" v-for="l in lists">
         <list :name="l.name" :key="l.id" :tasks="l.tasks" :id="l.id"></list>
       </div>
       <div class="col-md-2">

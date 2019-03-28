@@ -30,8 +30,18 @@
     },
     methods: {
       deleteTask () {
-        this.$axios.delete(`api/task/${this.taskO.id}`).then(result => {
-          this.$parent.$parent.loadLists()
+        this.$swal({
+          type: 'warning',
+          title: `Delete user : ${this.name}`,
+          text: `Are you sure you want to delete team ${this.name} ?`,
+          confirmButtonText: 'Yes, delete it!',
+          showCancelButton: true,
+        }).then(result => {
+          if (result.value) {
+            this.$axios.delete(`api/task/${this.taskO.id}`).then(result => {
+              this.$parent.$parent.loadLists()
+            })
+          }
         })
       }
     },
