@@ -13,11 +13,11 @@
           <form novalidate class="container my-2">
             <div class="form-group">
               <label for="taskName">Task name</label>
-              <input type="text" class="form-control" ref="taskName" id="taskName" v-model="taskName">
+              <input type="text" class="form-control" ref="taskName" id="taskName" v-model="taskName" @keydown.enter="createTask">
             </div>
             <div class="form-group">
               <label for="taskDescription">Task description</label>
-              <input type="text" class="form-control" id="taskDescription" v-model="taskDescription">
+              <textarea class="form-control" id="taskDescription" rows="3" v-model="taskDescription"></textarea>
             </div>
           </form>
         </div>
@@ -120,5 +120,7 @@
 </script>
 
 <style scoped>
-
+#taskDescription {
+  resize: None;
+}
 </style>

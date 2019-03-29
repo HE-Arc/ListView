@@ -13,11 +13,11 @@
           <form novalidate class="container my-2">
             <div class="form-group">
               <label for="boardName">Board name</label>
-              <input type="text" ref="boardName" class="form-control" id="boardName" v-model="boardName">
+              <input type="text" ref="boardName" class="form-control" id="boardName" v-model="boardName" @keydown.enter="sendBoard">
             </div>
             <div class="form-group">
               <label for="teamSelect">Choose the team</label>
-              <select id="teamSelect" class="form-control" v-model="selectedTeam">
+              <select id="teamSelect" class="form-control" v-model="selectedTeam" @keydown.enter="sendBoard">
                 <option disabled value="">Please select a team</option>
                 <option :value="t.id" v-for="t in teams">{{t.name}}</option>
               </select>
@@ -58,6 +58,9 @@
         })
       },
       closeModal () {
+        this.teams = []
+        this.boardName = ''
+        this.selectedTeam = ''
         this.$store.commit('utils/SETSHOWCREATEFORM', false)
       },
       sendBoard () {

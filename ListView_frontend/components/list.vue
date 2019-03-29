@@ -1,6 +1,6 @@
 <template>
   <div class="border border-secondary rounded my-2 px-1 bg-info">
-    <h3>{{name}}</h3>
+    <h3 class="ml-3">{{name}}<a @click="deleteList" class=" pl-3 text-danger deleteList float-right my-1">Delete list</a></h3>
     <task :taskO="t" v-for="t in tasks" :key="t.id"/>
     <div class="bg-white border border-secondary rounded my-1">
       <div class="bg-secondary createTask py-1" @click="createTask">
@@ -27,7 +27,22 @@
       createTask () {
         this.$store.commit('utils/SETLISTTOADDTASK', this.id)
         this.$store.commit('utils/SETSHOWMANAGETASK', true)
-      }
+      },
+      deleteList () {
+        this.$swal({
+          type: 'warning',
+          title: `Delete team : ${this.name}`,
+          text: `Are you sure you want to delete team ${this.name} ?`,
+          confirmButtonText: 'Yes, delete it!',
+          showCancelButton: true,
+        }).then(result => {
+          if (result.value) {
+            this.$axios.delete(`/api/list/${this.id}/`).then(result => {
+              //TODO refresh list
+            })
+          }
+        })
+      },
     }
   }
 </script>
@@ -39,5 +54,10 @@
 
   .createTask:hover {
     opacity: 1;
+  }
+
+  .deleteList {
+    font-size: 10pt;
+    cursor: pointer;
   }
 </style>
