@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <n-link class="navbar-brand" :to="{ name: 'index' }">ListView</n-link>
+      <n-link class="navbar-brand display-4" :to="{ name: 'index' }">ListView</n-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,10 +9,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <n-link :to="{ name: 'dashboard' }" class="nav-item nav-link" active-class="active" v-if="isLogged" exact>
-            Dashboard<span class="sr-only">(current)</span>
+            <i class="fas fa-clipboard-list"></i> Dashboard<span class="sr-only">(current)</span>
           </n-link>
           <n-link :to="{ name: 'teams' }" class="nav-item nav-link" active-class="active" v-if="isLogged" exact>
-            Teams<span class="sr-only">(current)</span>
+            <i class="fas fa-users"></i> Teams<span class="sr-only">(current)</span>
           </n-link>
         </ul>
         <div class="navbar-nav ml-auto btn-group">
@@ -27,7 +27,10 @@
           </div>
         </div>
         <ul class="navbar-nav ml-4">
-          <li class="nav-item nav-link" @click="changeLog" style="cursor: pointer;">{{textLog}}</li>
+          <li class="nav-item nav-link" @click="changeLog" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt" v-show="isLogged"></i>
+            <i class="fas fa-sign-in-alt" v-show="!isLogged"></i>
+             {{textLog}}</li>
         </ul>
       </div>
     </nav>

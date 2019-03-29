@@ -17,7 +17,7 @@
     <small>Add user to the team</small>
     <div class="mb-1"></div>
     <div>
-      <input type="text" class="form-control" placeholder="Username" v-model="textSearch">
+      <input type="text" class="form-control" placeholder="User email to add in the team" v-model="textSearch">
     </div>
     <div class="table-responsive mt-3">
       <table class="table bg-light border rounded">
