@@ -13,12 +13,12 @@
           <form novalidate class="container my-2">
             <div class="form-group">
               <label for="boardName">Board name</label>
-              <input type="text" ref="boardName" class="form-control" id="boardName" v-model="boardName" @keydown.enter="sendBoard">
+              <input type="text" ref="boardName" class="form-control" id="boardName" v-model="boardName"
+                     @keydown.enter="sendBoard">
             </div>
             <div class="form-group">
               <label for="teamSelect">Choose the team</label>
               <select id="teamSelect" class="form-control" v-model="selectedTeam" @keydown.enter="sendBoard">
-                <option disabled value="">Please select a team</option>
                 <option :value="t.id" v-for="t in teams">{{t.name}}</option>
               </select>
             </div>
@@ -45,7 +45,17 @@
     },
     mounted () {
       $('#createBoardModal').on('shown.bs.modal', () => {
-        this.$refs.boardName.focus()
+        if (this.teams.length < 1) {
+          this.closeModal()
+          this.$swal({
+              type: 'error',
+              title: 'Oops...',
+              text: 'You need to have a team before creating a board !'
+            })
+        } else {
+          this.selectedTeam = this.teams[0].id
+          this.$refs.boardName.focus()
+        }
       })
       $('#createBoardModal').on('hidden.bs.modal', () => {
         this.closeModal()
