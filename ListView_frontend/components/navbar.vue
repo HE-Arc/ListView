@@ -30,7 +30,7 @@
           </div>
         </div>
         <ul class="navbar-nav ml-4">
-          <li class="nav-item nav-link" @click="changeLog">{{textLog}}</li>
+          <li class="nav-item nav-link" @click="changeLog" style="cursor: pointer;">{{textLog}}</li>
         </ul>
       </div>
     </nav>
