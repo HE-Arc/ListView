@@ -31,8 +31,8 @@
       deleteList () {
         this.$swal({
           type: 'warning',
-          title: `Delete team : ${this.name}`,
-          text: `Are you sure you want to delete team ${this.name} ?`,
+          title: `Delete list : ${this.name}`,
+          text: `Are you sure you want to delete list ${this.name} ?`,
           confirmButtonText: 'Yes, delete it!',
           showCancelButton: true,
         }).then(result => {

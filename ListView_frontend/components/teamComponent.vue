@@ -7,7 +7,7 @@
         <tr v-for="u in users">
           <td>{{u.email}}</td>
           <td>
-            <button v-if="users.length > 1" class="btn btn-danger float-right" @click="deleteMember(u.id)"><i class="fal fa-trash-alt"></i></button>
+            <button v-if="users.length > 1" class="btn btn-danger float-right" @click="deleteMember(u)"><i class="fal fa-trash-alt"></i></button>
           </td>
         </tr>
         </tbody>
@@ -53,17 +53,16 @@
       }
     },
     methods: {
-      deleteMember (id_user) {
-        const username = this.users.filter(u => u.id === id_user)[0].name
+      deleteMember (user) {
         this.$swal({
           type: 'warning',
-          title: `Delete user : ${username}`,
-          text: `Are you sure you want to delete team ${username} ?`,
+          title: `Delete user`,
+          text: `Are you sure you want to delete ${user.email} from the team?`,
           confirmButtonText: 'Yes, delete it!',
           showCancelButton: true,
         }).then(result => {
           if (result.value) {
-            const usersFiltered = this.users.filter(u => u.id !== id_user)
+            const usersFiltered = this.users.filter(u => u.id !== user.id)
             this.$axios.patch(`/api/teams/${this.id}/`, {
               id: this.id,
               name: this.name,
@@ -91,11 +90,6 @@
         }).then(result => {
             if (result.value) {
               this.$axios.delete(`/api/teams/${this.id}`).then(() => {
-                this.$swal({
-                  type: 'success',
-                  title: 'Success',
-                  text: 'The team has been deleted !'
-                })
                 this.$parent.getAllTeams()
               }).catch(error => {
                 this.$swal({
@@ -146,5 +140,6 @@
 <style scoped>
   .deleteTeam {
     font-size: 10pt;
+    cursor: pointer;
   }
 </style>

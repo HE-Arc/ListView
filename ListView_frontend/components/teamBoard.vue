@@ -54,7 +54,7 @@
         this.$swal({
           type: 'warning',
           title: `Delete board : ${b.name}`,
-          text: `Are you sure you want to delete task ${b.name} ?`,
+          text: `Are you sure you want to delete board ${b.name} ?`,
           confirmButtonText: 'Yes, delete it!',
           showCancelButton: true,
         }).then(result => {
