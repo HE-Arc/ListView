@@ -13,7 +13,7 @@
           <form novalidate class="container my-2">
             <div class="form-group">
               <label for="boardName">Board name</label>
-              <input type="text" class="form-control" id="boardName" v-model="boardName">
+              <input type="text" ref="boardName" class="form-control" id="boardName" v-model="boardName">
             </div>
             <div class="form-group">
               <label for="teamSelect">Choose the team</label>
@@ -44,6 +44,9 @@
       }
     },
     mounted () {
+      $('#createBoardModal').on('shown.bs.modal', () => {
+        this.$refs.boardName.focus()
+      })
       $('#createBoardModal').on('hidden.bs.modal', () => {
         this.closeModal()
       })

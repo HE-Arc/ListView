@@ -58,7 +58,7 @@
           input: 'text',
           showCancelButton: true,
         }).then(listName => {
-          if (listName) {
+          if (listName.value) {
             this.$axios.post('/api/list/', {
               name: listName.value,
               board_id: this.$route.params.boardId

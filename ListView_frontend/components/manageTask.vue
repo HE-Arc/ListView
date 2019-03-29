@@ -13,7 +13,7 @@
           <form novalidate class="container my-2">
             <div class="form-group">
               <label for="taskName">Task name</label>
-              <input type="text" class="form-control" id="taskName" v-model="taskName">
+              <input type="text" class="form-control" ref="taskName" id="taskName" v-model="taskName">
             </div>
             <div class="form-group">
               <label for="taskDescription">Task description</label>
@@ -54,6 +54,11 @@
         }
       })
 
+      //Put focus on input when form is loaded
+      $('#manageTaskModal').on('shown.bs.modal', () => {
+        this.$refs.taskName.focus()
+      })
+
       $('#manageTaskModal').on('hidden.bs.modal', () => {
         this.cleanOnClose()
       })
@@ -71,12 +76,12 @@
             this.refreshClose()
           })
         } else {
-          this.$axios.patch(`/api/task/${this.taskId}/`, params).then(result=> {
+          this.$axios.patch(`/api/task/${this.taskId}/`, params).then(result => {
             this.refreshClose()
           })
         }
       },
-      refreshClose() {
+      refreshClose () {
         //TODO refresh list
         $('#manageTaskModal').modal('hide')
       },

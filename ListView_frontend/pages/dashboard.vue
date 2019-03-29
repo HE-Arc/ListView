@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-3">
     <team-board v-for="t in teams" :name="t.name" :boards="t.boards" :key="t.id" :teamId="t.id"/>
   </div>
 </template>
