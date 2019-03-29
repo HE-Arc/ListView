@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-secondary rounded my-1 py-1 bg-white">
+  <div class="border border-secondary rounded my-1 py-1 bg-white task">
     <div class="row" data-toggle="tooltip" data-placement="bottom" :title="taskO.description">
       <div class="col-auto ml-2 pt-1">
         <input type="checkbox" v-model="isChecked">
@@ -61,5 +61,9 @@
 </script>
 
 <style>
-
+.task:hover{
+  background-color: #7F828B !important;
+  border-color: blue !important;
+  cursor: pointer;
+}
 </style>

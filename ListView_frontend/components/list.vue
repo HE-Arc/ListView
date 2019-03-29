@@ -1,6 +1,6 @@
 <template>
   <div class="border border-secondary rounded my-2 px-1 bg-info">
-    <h3 class="ml-3">{{name}}<a @click="deleteList" class=" pl-3 text-danger deleteList float-right my-1">Delete list</a></h3>
+    <h3 class="ml-3 my-2">{{name}}<a @click="deleteList" class=" pl-3 pr-1 text-danger deleteList float-right">Delete list</a></h3>
     <task :taskO="t" v-for="t in tasks" :key="t.id"/>
     <div class="bg-white border border-secondary rounded my-1">
       <div class="bg-secondary createTask py-1" @click="createTask">
@@ -54,8 +54,8 @@
 
   .createTask:hover {
     opacity: 1;
+    cursor: pointer;
   }
-
   .deleteList {
     font-size: 10pt;
     cursor: pointer;

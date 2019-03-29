@@ -77,6 +77,7 @@
   .boardPane:hover {
     background-color: #7f828b !important;
     border-color: blue !important;
+    cursor: pointer;
   }
 
   .createBoard {
