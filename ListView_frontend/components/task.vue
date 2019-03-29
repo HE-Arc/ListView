@@ -8,7 +8,7 @@
         {{taskO.name}}
       </div>
       <div class="col-auto mr-2">
-        <button class="btn btn-danger" @click.stop="deleteTask"><i class="fal fa-trash-alt"></i></button>
+        <button class="btn btn-danger" @click.stop="deleteTask"><i class="far fa-trash-alt"></i></button>
       </div>
     </div>
   </div>

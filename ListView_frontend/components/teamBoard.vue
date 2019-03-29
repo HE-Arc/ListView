@@ -5,7 +5,7 @@
       <div class="col-md-3 p-2" v-for="b in boards"
            @click="$router.push({name: 'board-boardId', params: {boardId: b.id}})">
         <div class="float-right pr-2 pt-2">
-          <button class="btn btn-danger deleteBoard" @click.stop="deleteBoard(b)"><i class="fal fa-trash-alt"></i>
+          <button class="btn btn-danger deleteBoard" @click.stop="deleteBoard(b)"><i class="far fa-trash-alt"></i>
           </button>
         </div>
         <div class="boardPane border border-secondary rounded py-5 bg-light">
