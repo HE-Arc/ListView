@@ -28,6 +28,9 @@
             <button class="btn btn-primary" @click="addMember(u.id)"><i class="fal fa-user-plus"></i></button>
           </td>
         </tr>
+        <tr v-if="userFound.length < 1">
+          <td>No user found, try enter another search !</td>
+        </tr>
         </tbody>
       </table>
     </div>
