@@ -1,6 +1,6 @@
 <template>
   <div class="container border rounded mt-5 text-center">
-    <h1>{{name}}</h1>
+    <h1 class="display-4">{{name}}</h1>
     <div class="row">
       <div class="col-md-3 p-2" v-for="b in boards"
            @click="$router.push({name: 'board-boardId', params: {boardId: b.id}})">

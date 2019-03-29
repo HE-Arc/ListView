@@ -30,15 +30,15 @@
     },
     methods: {
       modifyTask () {
-        this.$store.commit('utils/SETLISTTOADDTASK', this.id)
+        this.$store.commit('utils/SETLISTTOADDTASK', this.taskO.list_id)
         this.$store.commit('utils/SETTASKTOMANAGE', this.taskO)
         this.$store.commit('utils/SETSHOWMANAGETASK', true)
       },
       deleteTask () {
         this.$swal({
           type: 'warning',
-          title: `Delete task : ${this.name}`,
-          text: `Are you sure you want to delete task ${this.name} ?`,
+          title: `Delete task : ${this.taskO.name}`,
+          text: `Are you sure you want to delete task ${this.taskO.name} ?`,
           confirmButtonText: 'Yes, delete it!',
           showCancelButton: true,
         }).then(result => {
