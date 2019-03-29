@@ -38,7 +38,7 @@
         }).then(result => {
           if (result.value) {
             this.$axios.delete(`/api/list/${this.id}/`).then(result => {
-              //TODO refresh list
+              this.$store.commit('utils/SETSHOULDREFRESHBOARD', true)
             })
           }
         })
