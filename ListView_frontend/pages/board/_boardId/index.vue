@@ -68,6 +68,19 @@
           }
         })
       },
+    },
+    computed: {
+      shouldRefreshBoard() {
+        return this.$store.getters['utils/getShouldRefreshBoard']
+      }
+    },
+    watch: {
+      shouldRefreshBoard(newValue, oldValue) {
+        if(newValue === true) {
+          this.loadLists()
+          this.$store.commit('utils/SETSHOULDREFRESHBOARD', false)
+        }
+      }
     }
   }
 </script>

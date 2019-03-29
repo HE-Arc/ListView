@@ -4,6 +4,7 @@ export const state = () => ({
   showManageTask: false,
   taskToManage: null,
   listToAddTask: null,
+  shouldRefreshBoard: false,
 })
 
 export const getters = {
@@ -21,7 +22,10 @@ export const getters = {
   },
   getListToAddTask(state) {
     return state.listToAddTask
-  }
+  },
+  getShouldRefreshBoard(state) {
+    return state.shouldRefreshBoard
+  },
 }
 
 export const mutations = {
@@ -39,5 +43,8 @@ export const mutations = {
   },
   SETLISTTOADDTASK(state,value) {
     state.listToAddTask = value
-  }
+  },
+  SETSHOULDREFRESHBOARD(state, value) {
+    state.shouldRefreshBoard = value
+  },
 }

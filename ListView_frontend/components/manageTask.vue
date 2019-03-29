@@ -61,6 +61,7 @@
 
       $('#manageTaskModal').on('hidden.bs.modal', () => {
         this.cleanOnClose()
+        this.$store.commit('utils/SETSHOULDREFRESHBOARD', true)
       })
     },
     methods: {
